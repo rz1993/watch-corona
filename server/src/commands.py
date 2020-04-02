@@ -38,7 +38,7 @@ def drop_tables():
 def update_tables(directory):
     end_date = datetime.today()
     start_date = end_date - timedelta(days=3)
-    update(directory, start_date=start_date, end_date=end_date)
+    update(directory, start_date=start_date, end_date=end_date, cron=True)
 
 @db_cli.command('fill')
 @click.argument('directory')

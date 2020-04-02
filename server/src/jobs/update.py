@@ -10,6 +10,7 @@ import glob
 import numpy as np
 import os
 import pandas as pd
+import time
 
 
 """
@@ -234,7 +235,7 @@ def upsert(conn, table, params, date, constraint_columns, value_columns):
         print(f"Inserting {len(insert_rows)} rows.")
         conn.execute(table.insert(), insert_rows)
 
-def update(data_dir, start_date=None, end_date=None):
+def update(data_dir, start_date=None, end_date=None, cron=False):
     conn_string = current_app.config['DATABASE_URI']
 
     engine = create_engine(conn_string)
@@ -249,6 +250,9 @@ def update(data_dir, start_date=None, end_date=None):
         df = pd.read_csv(file)
         date = datetime.strptime(file.strip(".csv"), "%m-%d-%Y")
         if (start_date and date < start_date) or (end_date and date > end_date):
+            continue
+
+        if cron and (time.time() - os.path.getmtime(file) > 600):
             continue
 
         if 'FIPS' in df.columns:

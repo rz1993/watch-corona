@@ -1,0 +1,11 @@
+[Unit]
+Description=Gunicorn instance to server watch-corona app.
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/rz1993/watch-corona/server
+Environment="PYTHONPATH=/home/rz1993/watch-corona/server/env_covid_app/bin"
+EnvironmentFile=/home/rz1993/watch-corona/server/.env
+ExecStart=/home/rz1993/watch-corona/server/run.sh
