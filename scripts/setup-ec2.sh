@@ -3,7 +3,7 @@
 sudo apt-get upgrade
 sudo apt-get update -y
 
-sudo apt-get install python3-pip python3-dev nginx -y
+sudo apt-get install python3-pip python3-dev nginx supervisor -y
 
 sudo pip3 install virtualenv
 
