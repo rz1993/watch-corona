@@ -53,6 +53,11 @@ def parse_date(d):
         pass
 
     try:
+        return datetime.strptime(d, "%Y-%m-%dY%H:%M:%S")
+    except:
+        pass
+
+    try:
         return datetime.strptime(d, "%m/%d/%y %H:%M")
     except:
         pass

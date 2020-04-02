@@ -6,7 +6,7 @@ COPY app.py run.sh requirements.txt ./
 
 RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev \
   && apk add --no-cache openssl-dev libffi-dev \
-  && python3 -m pip install -r requirements/development.txt
+  && python3 -m pip install -r requirements.txt
 
 COPY src src
 
