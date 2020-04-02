@@ -1,9 +1,10 @@
 from datetime import datetime, timedelta
+from dateutil import parser as dateparser
 from src.errors import Http422Exception
 import json
 
 
-COUNTRY_MAPPING = json.loads(open("data/country_mapping.json").read())
+COUNTRY_MAPPING = json.loads(open("resources/country_mapping.json").read())
 
 def map_to_country(code):
     return code
@@ -20,30 +21,31 @@ def map_to_country_old(code):
 def parse_date(d):
     date_parsed = None
     try:
-        date_parsed = datetime.strptime(d, "%m%d%y")
+        return dateparser.parse(d)
+    except Exception as ex:
+        pass
+    
+    try:
+        return datetime.strptime(d, "%m%d%y")
     except Exception as ex:
         pass
 
-    if not date_parsed:
-        try:
-            date_parsed = datetime.strptime(d, "%m%d%Y")
-        except Exception as ex:
-            pass
+    try:
+        return datetime.strptime(d, "%m%d%Y")
+    except Exception as ex:
+        pass
 
-    if not date_parsed:
-        try:
-            date_parsed = datetime.strptime(d, "%m-%d-%Y")
-        except Exception as ex:
-            pass
-    if not date_parsed:
-        try:
-            date_parsed = datetime.strptime(d, "%m-%d-%y")
-        except Exception as ex:
-            pass
+    try:
+        return datetime.strptime(d, "%m-%d-%Y")
+    except Exception as ex:
+        pass
 
-    if not date_parsed:
-        raise Http422Exception("Invalid date.")
-    return date_parsed
+    try:
+        return datetime.strptime(d, "%m-%d-%y")
+    except Exception as ex:
+        pass
+
+    raise Http422Exception("Invalid date.")
 
 def date_to_string(d):
     date_str = d.strftime("%#m/%#d/%y")

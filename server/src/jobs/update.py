@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from dateutil import parser as dateparser
 from flask import current_app
 from pathlib import Path
 from sqlalchemy.sql.expression import bindparam, insert
@@ -48,7 +49,7 @@ def standardize_date(d):
 
 def parse_date(d):
     try:
-        return datetime.fromisoformat(d)
+        return dateparser.parse(d)
     except:
         pass
 
