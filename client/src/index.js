@@ -29,11 +29,15 @@ TODO:
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
+    minWidth: '600px'
   },
   paper: {
     padding: theme.spacing(2),
     color: theme.palette.text.secondary,
   },
+  banner: {
+    minWidth: '500px'
+  }
 }));
 
 

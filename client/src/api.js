@@ -9,9 +9,6 @@ if (process.env.REACT_APP_APP_STAGE === "production") {
   BASE_URL = `${window.location.protocol}://${window.location.hostname}/api/v1`
 }
 
-console.log("HELLO WORLD")
-console.log("USING API URL:", BASE_URL)
-
 const withParams = (params, schema) => {
   for (let [key, value] of Object.entries(params)) {
     if (schema[key] === undefined) {
